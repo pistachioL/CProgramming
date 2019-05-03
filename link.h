@@ -2,10 +2,10 @@
 #define STUDENT_INFO_H
 typedef struct Student_Info
 {
-	char Sno[30];
+	int Sno;
 	char Sname[30];
 	char Gender[30];
-	char Class[30];
+	int  Class;
 	char Birthday[30];   //1999/11/13
 	char Phone[30];
 	char Address[30];
@@ -21,15 +21,22 @@ typedef struct
 }STU;
 extern STU stu;
 
-
+void menu();
 
 void Import();
 void Search_All_Info();
+void Search_By_Sno();
+void Search_By_Sname();
+void Search_By_Phone();
+void Search_By_Class();
 void Search();
-void Create();
-void Delete();
+void Insert();
+void Delete_By_Sno();
+void Delete_By_Name();
 void Update();
 
-
+void SortByClass();
+void SortBySno();
+void SortByName();
 int ConvertToInt(char *a);
 #endif
