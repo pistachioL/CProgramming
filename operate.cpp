@@ -85,14 +85,12 @@ void Import()
 			char* address = strtok(NULL, " ");
 			if (sno != NULL && name != NULL && gender != NULL && classes != NULL && birthday != NULL && phone != NULL && address != NULL)
 			{
-				//strcpy(stu.student[stu.len].Sno, sno);
 				stu.student[stu.len].Sno = ConvertToInt(sno);
-				//cout << stu.student[stu.len].Sno << endl;
+
 				strcpy(stu.student[stu.len].Sname, name);
 
 				strcpy(stu.student[stu.len].Gender, gender);
 				
-			//	strcpy(stu.student[stu.len].Class, classes);
 				stu.student[stu.len].Class = ConvertToInt(classes);
 
 				strcpy(stu.student[stu.len].Birthday, birthday);
@@ -112,6 +110,7 @@ void Import()
 	}
 	fclose(fp);
 }
+
 
 void Search_All_Info()
 {
@@ -253,23 +252,27 @@ void Insert()
 	int n = CountLines();
 	FILE *fp;
 	fp = fopen("./Student_Info.txt", "a");
-	
-	if (fp == NULL)
-		printf("文本没有内容！");
-	else
+	printf("请输入要需要插入的学生的学号：\n");
+	int id;
+	scanf("%d", &id);
+	for (i = 1;i <= stu.len;i++)
+	{
+		if (stu.student[i].Sno == id)
+		{
+			printf("该学生已经存在，请重新输入！\n");
+			Insert();
+		}
+	}
+	if(i>stu.len)
 	{
 		do
 		{
-
-			fprintf(fp, "\n");
 			n++;
 			stu.len = n;
 			stu.student[stu.len].Sno = stu.len;
 			fprintf(fp, "%d", n);
 			//	fprintf(fp, "%d", stu.student[stu.len].Sno);
-
-
-			cout << stu.student[stu.len].Sno << endl;
+			//cout << stu.student[stu.len].Sno << endl;
 			printf("请输入学生名字：\n");
 			char name[30];
 			scanf("%s", name);
@@ -310,11 +313,10 @@ void Insert()
 
 			printf("添加成功！\n");
 			printf("学生有%d人\n", n);
-			for (i = n;i <= stu.len;i++)
-			{
-				fprintf(fp, "%d %s %s %d %s %s %s\n", stu.student[i].Sno, stu.student[i].Sname, stu.student[i].Gender,
+			fprintf(fp, "\n");
+			fprintf(fp, "%d %s %s %d %s %s %s\n", stu.student[i].Sno, stu.student[i].Sname, stu.student[i].Gender,
 					stu.student[i].Class, stu.student[i].Birthday, stu.student[i].Phone, stu.student[i].Address);
-			}
+			
 			printf("是否继续添加？（Y/N）\n");
 
 			//scanf("%c", &ch);
@@ -364,7 +366,7 @@ void Update()
 			printf("请输入修改后的联系方式：\n");
 			char call[30];
 			scanf("%s", call);
-			strcpy(stu.student[i].Phone, call);
+			strcpy(stu.student[i].Phone, call);	
 			break;
 		case 3:
 			printf("请输入修改后的家庭住址：\n");
@@ -425,3 +427,4 @@ void Delete_By_Name()
 		printf("删除成功！\n");
 	}
 }
+

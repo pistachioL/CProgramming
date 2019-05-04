@@ -20,6 +20,9 @@ void menu()
 		printf("\t\t\t7.通过学号删除  ");
 		printf("8.通过姓名删除\n");
 		printf("\t\t\t9.通过班级查询");
+		printf("10.录入学生成绩\n");
+		printf("\t\t\t11.修改学生成绩");
+		printf("12.查看学生成绩\n");
 		scanf("%d", &flag);
 		switch (flag)
 		{
@@ -49,6 +52,15 @@ void menu()
 			break;
 		case 9:
 			Search_By_Class();
+			break;
+		case 10:
+			Input_Score();
+			break;
+		case 11:
+			Update_Score();
+			break;
+		case 12:
+			Check_Score();
 			break;
 
 

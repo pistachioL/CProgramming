@@ -48,3 +48,21 @@ void SortByName()
 	
 	}
 }
+
+void Sort_By_Score()
+{
+	double t;
+	for (int i = 1;i <= stu.len;i++)
+	{
+		for (int j = i;j <= stu.len;j++)
+		{
+			if (stu.student[i].Sum > stu.student[j].Sum)
+			{
+				t = stu.student[i].Sum;
+				stu.student[i].Sum = stu.student[j].Sum;
+				stu.student[j].Sum = t;
+			}
+		}
+	}
+	
+}
