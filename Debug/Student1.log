@@ -1,13 +1,4 @@
-﻿  Score.cpp
+﻿  operate.cpp
 d:\study\cprogramming\student1\student1\link.h(15): warning C4091: “typedef ”: 没有声明变量时忽略“Student_Info”的左侧
-d:\study\cprogramming\student1\student1\score.cpp(86): warning C4101: “ave”: 未引用的局部变量
-  Sort.cpp
-d:\study\cprogramming\student1\student1\link.h(15): warning C4091: “typedef ”: 没有声明变量时忽略“Student_Info”的左侧
-  main.cpp
-d:\study\cprogramming\student1\student1\link.h(15): warning C4091: “typedef ”: 没有声明变量时忽略“Student_Info”的左侧
-  operate.cpp
-d:\study\cprogramming\student1\student1\link.h(15): warning C4091: “typedef ”: 没有声明变量时忽略“Student_Info”的左侧
-d:\study\cprogramming\student1\student1\operate.cpp(291): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
 d:\study\cprogramming\student1\student1\operate.cpp(251): warning C4101: “a”: 未引用的局部变量
-  正在生成代码...
   Student1.vcxproj -> D:\Study\CProgramming\Student1\Debug\Student1.exe

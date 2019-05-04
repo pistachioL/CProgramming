@@ -42,10 +42,13 @@ void SortByName();
 int ConvertToInt(char *a);
 void ClearNextLine(char *s);
 
-void Import_Socre();
+void Import_Score();
 void Update_Score();
 void Check_Score();
 void Sort_By_Score();
+void Search_All_Score();
+void Output_High_Score();
+void Output_Top_Three();
 
-void Output_High_Score()
+void Save_In_File();
 #endif

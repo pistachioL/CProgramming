@@ -116,7 +116,7 @@ void Search_All_Info()
 {
 	printf("\n");
 	printf("请选择查看方式：\n");
-	printf("1.按学号排序  2.按名字排序  3.按班级排序");
+	printf("1.按学号排序  2.按名字排序  3.按班级排序\n");
 	int flag;
 	scanf("%d", &flag);
 	switch (flag)
@@ -288,7 +288,7 @@ void Insert()
 			printf("请输入学生班级：\n");
 			int c;
 			scanf("%d", &c);
-			stu.student[stu.len].Class == c;
+			stu.student[stu.len].Class = c;
 			//	fprintf(fp, "%s", stu.student[stu.len].Class);
 
 			printf("请输入学生出生日期：\n");
@@ -314,8 +314,9 @@ void Insert()
 			printf("添加成功！\n");
 			printf("学生有%d人\n", n);
 			fprintf(fp, "\n");
-			fprintf(fp, "%d %s %s %d %s %s %s\n", stu.student[i].Sno, stu.student[i].Sname, stu.student[i].Gender,
-					stu.student[i].Class, stu.student[i].Birthday, stu.student[i].Phone, stu.student[i].Address);
+		/*	fprintf(fp, "%d \t %s \t %s \t %d \t %s \t %s \t %s\n", stu.student[id].Sno, stu.student[id].Sname, stu.student[id].Gender,
+					stu.student[id].Class, stu.student[id].Birthday, stu.student[id].Phone, stu.student[id].Address);*/
+
 			
 			printf("是否继续添加？（Y/N）\n");
 
@@ -428,3 +429,15 @@ void Delete_By_Name()
 	}
 }
 
+
+void Save_In_File()
+{
+	FILE *fp;
+	fp = fopen("./Student_Info.txt", "w");
+	char blank[30] = " ";
+	for (int i = 1;i <= stu.len;i++)
+	{
+		fprintf(fp, "%d %s %-10s %s %-10s %s %-10d %s %-10s %s %-10s %s %-10s\n", stu.student[i].Sno, blank, stu.student[i].Sname, blank,stu.student[i].Gender, blank,
+				stu.student[i].Class, blank, stu.student[i].Birthday, blank,stu.student[i].Phone, blank, stu.student[i].Address);
+	}
+}
