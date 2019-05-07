@@ -53,8 +53,8 @@ void Import_Score()
 						for (int j = 1;j <= stu.len;j++)
 						{
 							stu.student[j].Sum = stu.student[j].Score[0] + stu.student[j].Score[1] + stu.student[j].Score[2] + stu.student[j].Score[3] +
-													stu.student[j].Score[4] + stu.student[j].Score[5];
-														stu.student[j].Average = (stu.student[j].Sum) / 6.0;
+								stu.student[j].Score[4] + stu.student[j].Score[5];
+							stu.student[j].Average = (stu.student[j].Sum) / 6.0;
 						}
 				        
 
@@ -73,19 +73,20 @@ void Import_Score()
 }
 void Input_Score()
 {
+	int i,j;
 	FILE *fp;
 	fp = fopen("./Student_Score.txt", "a");
 	fprintf(fp, "\n");
 	printf("请输入要录入成绩的学生学号：\n");
-	int id;
-	scanf("%d", &id);
-	int i, j;
+	long long int id;
+	scanf("%lld", &id);
 	for (i = 1;i <= stu.len;i++)
 	{
-		if (stu.student[i].Sno == id)
+		if (stu.student[i].SID == id)
 		{
 			break;
 		}
+
 	}
 	if (i > stu.len)
 		printf("没有该学生!\n");
@@ -96,7 +97,7 @@ void Input_Score()
 		for (j = 0;j < 6;j++)
 		{
 			scanf("%lf", &stu.student[i].Score[j]);  //输入6科成绩
-			stu.student[i].Sum += stu.student[i].Score[j];   //计算总成绩
+			//stu.student[i].Sum += stu.student[i].Score[j];   //计算总成绩
 	
 		}
 		//cout << "总成绩：" << stu.student[i].Sum << endl;
@@ -108,14 +109,15 @@ void Check_Score()
 	int i;
 	double ave;
 	printf("请输入要统计成绩的学生学号：\n");
-	int id;
-	scanf("%d", &id);
+	long long int id;
+	scanf("%lld", &id);
 	for (i = 1;i <= stu.len;i++)
 	{
-		if (stu.student[i].Sno == id)
+		if (stu.student[i].SID == id)
 		{
 			break;
 		}
+
 	}
 	if (i > stu.len)
 		printf("没有该学生!\n");
@@ -153,14 +155,15 @@ void Update_Score()
 	int i;
 	double ave;
 	printf("请输入要统计成绩的学生学号：\n");
-	int id;
-	scanf("%d", &id);
+	long long int id;
+	scanf("%lld", &id);
 	for (i = 1;i <= stu.len;i++)
 	{
-		if (stu.student[i].Sno == id)
+		if (stu.student[i].SID == id)
 		{
 			break;
 		}
+
 	}
 	if (i > stu.len)
 		printf("没有该学生!\n");
@@ -168,7 +171,9 @@ void Update_Score()
 	{
 		do
 		{
-			printf("请输入要修改学科的编号0 1 2 3 4 5 \n");
+			printf("对应每门学科的编号为：\n");
+			printf("0.《C程序设计》 1.《算法》 2.《数据结构》 3.《安卓》 4.《JAVA》 5.《计算机组成原理》\n");
+			printf("请输入要修改学科的编号:\n");
 			int  num;
 			scanf("%d", &num);
 			printf("请输入修改后的分数：\n");
@@ -235,18 +240,30 @@ void Search_All_Score()
 
 void Output_High_Score()
 {
-	
+	for (int j = 1;j <= stu.len;j++)
+	{
+		stu.student[j].Sum = stu.student[j].Score[0] + stu.student[j].Score[1] + stu.student[j].Score[2] + stu.student[j].Score[3] +
+			stu.student[j].Score[4] + stu.student[j].Score[5];
+		stu.student[j].Average = (stu.student[j].Sum) / 6.0;
+	}
 	Sort_By_Score();
-	printf("总分最高的学生名字是：%s\n总成绩：%.2lf\n学号:%d\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[1].Sname, stu.student[1].Sum, stu.student[1].Sno, stu.student[1].Gender, stu.student[1].Class, stu.student[1].Birthday, stu.student[1].Phone, stu.student[1].Address);
+	printf("总分最高的学生名字是：%s\n总成绩：%.2lf\n学号:%lld\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[1].Sname, stu.student[1].Sum, stu.student[1].SID, stu.student[1].Gender, stu.student[1].Class, stu.student[1].Birthday, stu.student[1].Phone, stu.student[1].Address);
 }
 
 void Output_Top_Three()
 {
+	for (int j = 1;j <= stu.len;j++)
+	{
+		stu.student[j].Sum = stu.student[j].Score[0] + stu.student[j].Score[1] + stu.student[j].Score[2] + stu.student[j].Score[3] +
+			stu.student[j].Score[4] + stu.student[j].Score[5];
+		stu.student[j].Average = (stu.student[j].Sum) / 6.0;
+	}
 	Sort_By_Score();
 
-	printf("第一名的学生名字是：%s\n总成绩：%.2lf\n学号:%d\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[1].Sname, stu.student[1].Sum, stu.student[1].Sno, stu.student[1].Gender, stu.student[1].Class, stu.student[1].Birthday, stu.student[1].Phone, stu.student[1].Address);
 
-	printf("第二名的学生名字是：%s\n总成绩：%.2lf\n学号:%d\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[2].Sname, stu.student[2].Sum, stu.student[2].Sno, stu.student[2].Gender, stu.student[2].Class, stu.student[2].Birthday, stu.student[2].Phone, stu.student[2].Address);
+	printf("第一名的学生名字是：%s\n总成绩：%.2lf\n学号:%lld\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[1].Sname, stu.student[1].Sum, stu.student[1].SID, stu.student[1].Gender, stu.student[1].Class, stu.student[1].Birthday, stu.student[1].Phone, stu.student[1].Address);
 
-	printf("第三名的学生名字是：%s\n总成绩：%.2lf\n学号:%d\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[3].Sname, stu.student[3].Sum, stu.student[3].Sno, stu.student[3].Gender, stu.student[3].Class, stu.student[3].Birthday, stu.student[3].Phone, stu.student[3].Address);
+	printf("第二名的学生名字是：%s\n总成绩：%.2lf\n学号:%lld\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[2].Sname, stu.student[2].Sum, stu.student[2].SID, stu.student[2].Gender, stu.student[2].Class, stu.student[2].Birthday, stu.student[2].Phone, stu.student[2].Address);
+
+	printf("第三名的学生名字是：%s\n总成绩：%.2lf\n学号:%lld\n性别：%s\n班级：%d\n出生日期：%s\n联系方式：%s\n家庭地址：%s\n", stu.student[3].Sname, stu.student[3].Sum, stu.student[3].SID, stu.student[3].Gender, stu.student[3].Class, stu.student[3].Birthday, stu.student[3].Phone, stu.student[3].Address);
 }

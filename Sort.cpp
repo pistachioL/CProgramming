@@ -6,7 +6,7 @@ void SortBySno()
 	{
 		for (int j = i + 1;j <= stu.len;j++)
 		{
-			if (stu.student[i].Sno > stu.student[j].Sno)   //Ñ§ºÅÉıĞòÊä³ö
+			if (stu.student[i].SID > stu.student[j].SID)   //Ñ§ºÅÉıĞòÊä³ö
 			{
 				temp = stu.student[i];
 				stu.student[i] = stu.student[j];

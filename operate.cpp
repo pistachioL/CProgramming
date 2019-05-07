@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <sstream>
 #include <iostream>
+#include <stdlib.h>  //声明atoll（）
 using namespace std;
 
 void ClearNextLine(char *s) //清除换行符
@@ -19,6 +20,13 @@ int ConvertToInt(char* a)
 	int x;
 	x = atoi(a);
 	return x;
+}
+
+long long int ConvertToLongInt(char* a)
+{
+	long long int b;
+	b = atoll(a);
+	return b;
 }
 //char* itoa(int n, char s[])
 //{
@@ -77,15 +85,18 @@ void Import()
 			ClearNextLine(temp);
 			stu.len++;
 			char* sno = strtok(temp, " ");
+			char* sid = strtok(NULL, " ");
 			char* name = strtok(NULL, " ");
 			char* gender = strtok(NULL, " ");
 			char* classes = strtok(NULL, " ");
 			char* birthday = strtok(NULL, " ");
 			char* phone = strtok(NULL, " ");
 			char* address = strtok(NULL, " ");
-			if (sno != NULL && name != NULL && gender != NULL && classes != NULL && birthday != NULL && phone != NULL && address != NULL)
+			if (sno != NULL && sid != NULL && name != NULL && gender != NULL && classes != NULL && birthday != NULL && phone != NULL && address != NULL)
 			{
 				stu.student[stu.len].Sno = ConvertToInt(sno);
+
+				stu.student[stu.len].SID = ConvertToLongInt(sid);
 
 				strcpy(stu.student[stu.len].Sname, name);
 
@@ -132,12 +143,14 @@ void Search_All_Info()
 		break;
 
 	}
-	//SortByClass();
-
+	printf("\n");
+	
+	printf("序号    学号       姓名     性别    班别    出生日期    联系方式    家庭地址\n");
 	for (int i = 1;i <= stu.len;i++)
 	{
-		printf("%-5d %-5s %-5s %-10d %-10s %-10s %-10s\n",stu.student[i].Sno,stu.student[i].Sname,stu.student[i].Gender,
+		printf("%-5d %-2lld %-10s %-5s %-5d %-9s %-8s %-5s\n", stu.student[i].Sno, stu.student[i].SID, stu.student[i].Sname, stu.student[i].Gender,
 			stu.student[i].Class,stu.student[i].Birthday,stu.student[i].Phone, stu.student[i].Address);
+		printf("\n");
  	}
 	
 }
@@ -146,11 +159,11 @@ void Search_By_Sno()  //通过学号查询
 {
 	int i;
 	printf("请输入你要查询的学号：\n");
-	int id;
-	scanf("%d", &id);
+	long long int id;
+	scanf("%lld", &id);
 	for (i = 1;i <= stu.len;i++)
 	{
-		if (stu.student[i].Sno == id)	
+		if (stu.student[i].SID == id)
 		{
 			break;
 		}
@@ -191,7 +204,7 @@ void Search_By_Sname()  //通过姓名查询
 
 	else
 	{
-		printf("学号:%d\n性别:%s\n所在班级:%d\n出生日期：%s\n联系方式：%s\n家庭地址是:%s\n", stu.student[i].Sno, stu.student[i].Gender, stu.student[i].Class, stu.student[i].Birthday, stu.student[i].Phone, stu.student[i].Address);
+		printf("学号:%lld\n性别:%s\n所在班级:%d\n出生日期：%s\n联系方式：%s\n家庭地址是:%s\n", stu.student[i].SID, stu.student[i].Gender, stu.student[i].Class, stu.student[i].Birthday, stu.student[i].Phone, stu.student[i].Address);
 	}
 
 }
@@ -218,7 +231,7 @@ void Search_By_Phone()  //通过联系方式查询
 
 	else
 	{
-		printf("学号：%d\n姓名:%s\n性别:%s\n所在班级:%d\n出生日期：%s\n家庭地址是:%s\n", stu.student[i].Sno, stu.student[i].Sname, stu.student[i].Gender, stu.student[i].Class, stu.student[i].Birthday,  stu.student[i].Address);
+		printf("学号：%lld\n姓名:%s\n性别:%s\n所在班级:%d\n出生日期：%s\n家庭地址是:%s\n", stu.student[i].SID, stu.student[i].Sname, stu.student[i].Gender, stu.student[i].Class, stu.student[i].Birthday,  stu.student[i].Address);
 	}
 
 }
@@ -233,11 +246,9 @@ void Search_By_Class()  //通过班级查询
 	{
 		if (stu.student[i].Class == classno)
 		{
-			printf("姓名:%s\n性别:%s\n所在班级:%d\n出生日期：%s\n联系方式：%s\n家庭地址是:%s\n", stu.student[i].Sname, stu.student[i].Gender,
+			printf("学号:%lld\n姓名:%s\n性别:%s\n所在班级:%d\n出生日期：%s\n联系方式：%s\n家庭地址是:%s\n", stu.student[i].SID,stu.student[i].Sname, stu.student[i].Gender,
 				stu.student[i].Class, stu.student[i].Birthday, stu.student[i].Phone, stu.student[i].Address);
 		}
-	
-
 	}
 	if(i>stu.len)
 		printf("没有该学生！\n");
@@ -246,52 +257,56 @@ void Search_By_Class()  //通过班级查询
 
 void Insert()
 {
+	long long int id;
 	int i;
-	char ch;
+	char ch = 'Y';
 	char a[300];
 	int n = CountLines();
 	FILE *fp;
 	fp = fopen("./Student_Info.txt", "a");
-	printf("请输入要需要插入的学生的学号：\n");
-	int id;
-	scanf("%d", &id);
-	for (i = 1;i <= stu.len;i++)
-	{
-		if (stu.student[i].Sno == id)
+	do {
+		printf("请输入要需要插入的学生的学号(12位)：\n");
+
+		scanf("%lld", &id);
+		for (i = 1;i <= stu.len;i++)
 		{
-			printf("该学生已经存在，请重新输入！\n");
-			Insert();
+			if (stu.student[i].SID == id)
+			{
+				printf("该学生已经存在，请重新输入！\n");
+				break;
+			}
 		}
-	}
-	if(i>stu.len)
-	{
-		do
+		if (i > stu.len)
 		{
 			n++;
 			stu.len = n;
 			stu.student[stu.len].Sno = stu.len;
 			fprintf(fp, "%d", n);
-			//	fprintf(fp, "%d", stu.student[stu.len].Sno);
-			//cout << stu.student[stu.len].Sno << endl;
+
+			/*	printf("请输入学生的学号：(12位)\n");
+				long long int id;
+				scanf("%lld", &id);*/
+			stu.student[stu.len].SID = id;
+
 			printf("请输入学生名字：\n");
 			char name[30];
 			scanf("%s", name);
 			strcpy(stu.student[stu.len].Sname, name);
-			//	fprintf(fp, "%s", stu.student[stu.len].Sname);
+
 
 			printf("请输入学生性别：\n");
 			char sex[30];
 			scanf("%s", sex);
 			strcpy(stu.student[stu.len].Gender, sex);
-			//	fprintf(fp, "%s", stu.student[stu.len].Gender);
 
-			printf("请输入学生班级：\n");
+
+			printf("请输入学生班级：（如1）\n");
 			int c;
 			scanf("%d", &c);
 			stu.student[stu.len].Class = c;
-			//	fprintf(fp, "%s", stu.student[stu.len].Class);
 
-			printf("请输入学生出生日期：\n");
+
+			printf("请输入学生出生日期：(1998/10/09)\n");
 			char b[30];
 			scanf("%s", b);
 			strcpy(stu.student[stu.len].Birthday, b);
@@ -312,12 +327,12 @@ void Insert()
 
 
 			printf("添加成功！\n");
-			printf("学生有%d人\n", n);
-			fprintf(fp, "\n");
-		/*	fprintf(fp, "%d \t %s \t %s \t %d \t %s \t %s \t %s\n", stu.student[id].Sno, stu.student[id].Sname, stu.student[id].Gender,
-					stu.student[id].Class, stu.student[id].Birthday, stu.student[id].Phone, stu.student[id].Address);*/
-
 			
+			printf("学生有%d人\n", stu.len);
+			fprintf(fp, "\n");
+		
+
+
 			printf("是否继续添加？（Y/N）\n");
 
 			//scanf("%c", &ch);
@@ -329,23 +344,26 @@ void Insert()
 				break;
 			}
 
-		} while (ch == 'Y');
-		    
-		
-	}
+		}
+
+	} while (ch == 'Y' || ch == 'y');
 }
+
 
 
 void Update()
 {
 	int i;
 	printf("请输入要修改学生的学号：\n");
-	int id;
-	scanf("%d", &id);
+	long long int id;
+	scanf("%lld", &id);
 	for (i = 1;i <= stu.len;i++)
 	{
-		if (stu.student[i].Sno == id)
+		if (stu.student[i].SID == id)
+		{
 			break;
+		}
+
 	}
 	if (i > stu.len)
 		printf("没有该学生！\n");
@@ -386,22 +404,29 @@ void Delete_By_Sno()
 {
 	int i,j;
 	printf("请输入要删除学生的学号：\n");
-	int id;
-	scanf("%d", &id);
+	long long int id;
+	scanf("%lld", &id);
 	for (i = 1;i <= stu.len;i++)
 	{
-		if (stu.student[i].Sno == id)
+		if (stu.student[i].SID == id)
+		{
 			break;
+		}
+
 	}
 	if (i > stu.len)
 		printf("没有该学生！\n");
 	else
 	{
+		
+	
 		for (j = i + 1;j <= stu.len;j++)
 		{
 			stu.student[i] = stu.student[j];
 		}
 		printf("删除成功！\n");
+		stu.len--;   //先替换 再删除
+		//cout << stu.len << endl;
 	}
 }
 
@@ -426,6 +451,7 @@ void Delete_By_Name()
 			stu.student[i] = stu.student[j];
 		}
 		printf("删除成功！\n");
+		stu.len--;
 	}
 }
 
@@ -434,10 +460,14 @@ void Save_In_File()
 {
 	FILE *fp;
 	fp = fopen("./Student_Info.txt", "w");
-	char blank[30] = " ";
+
 	for (int i = 1;i <= stu.len;i++)
 	{
-		fprintf(fp, "%d %s %-10s %s %-10s %s %-10d %s %-10s %s %-10s %s %-10s\n", stu.student[i].Sno, blank, stu.student[i].Sname, blank,stu.student[i].Gender, blank,
-				stu.student[i].Class, blank, stu.student[i].Birthday, blank,stu.student[i].Phone, blank, stu.student[i].Address);
+		fprintf(fp, "%d    %-10lld      %-10s    %-10s     %-10d    %-10s    %-10s   %-10s", stu.student[i].Sno, stu.student[i].SID, stu.student[i].Sname, stu.student[i].Gender,
+			stu.student[i].Class, stu.student[i].Birthday, stu.student[i].Phone, stu.student[i].Address);
 	}
+
+	/*int n = 123;
+	fprintf(fp, "%d", n);*/
+	fclose(fp);
 }

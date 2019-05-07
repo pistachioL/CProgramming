@@ -2,14 +2,15 @@
 #define STUDENT_INFO_H
 typedef struct Student_Info
 {
-	int Sno;
+	int Sno;  //序号
+	long long int SID;  //学号
 	char Sname[30];
 	char Gender[30];
 	int  Class;
-	char Birthday[30];   //1999/12/31
+	char Birthday[30]; //1999/12/31
 	char Phone[30];
 	char Address[30];
-	double Score[6];   //6门课程的成绩
+	double Score[6]; //6门课程的成绩
 	double Average;
 	double Sum;
 };
@@ -22,9 +23,9 @@ typedef struct
 extern STU stu;
 
 void menu();
-
+//学生信息管理
 void Import();
-void Input_Score();
+
 void Search_All_Info();
 void Search_By_Sno();
 void Search_By_Sname();
@@ -41,8 +42,9 @@ void SortByName();
 
 int ConvertToInt(char *a);
 void ClearNextLine(char *s);
-
+//成绩管理
 void Import_Score();
+void Input_Score();
 void Update_Score();
 void Check_Score();
 void Sort_By_Score();

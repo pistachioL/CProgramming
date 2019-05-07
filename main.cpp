@@ -9,7 +9,6 @@ void menu()
 	int flag;
 	while (1)
 	{
-		
 		printf("\t\t************ 请选择你的操作：**************\n");
 		printf("\t\t1.插入学生信息\t\t");
 		printf("2.浏览所有学生信息\n");
@@ -27,6 +26,7 @@ void menu()
 		printf("14.输出总成绩最高的学生的成绩\n");
 		printf("\t\t15.输出前三名学生的成绩\t");
 		printf("16.退出\n");
+		
 		scanf("%d", &flag);
 		switch (flag)
 		{
@@ -90,6 +90,7 @@ void menu()
 
 int main()
 {
+	
 	printf("\t\t\t*************************\n");
 	printf("\t\t\t欢迎来到学生信息管理系统!\n");
 	printf("\t\t\t*************************\n");
